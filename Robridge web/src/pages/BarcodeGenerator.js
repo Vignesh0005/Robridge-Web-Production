@@ -98,7 +98,7 @@ const BarcodeGenerator = () => {
     
     try {
       // Start backend using Express server
-      const startResponse = await fetch(`${EXPRESS_SERVER_URL}/api/start-backend`, {
+      const startResponse = await fetch(`${API_BASE_URL}/api/start-backend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
