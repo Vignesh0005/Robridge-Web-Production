@@ -34,8 +34,7 @@
     "setup": "npm install && cd \"../Barcode generator&Scanner\" && pip install -r requirements.txt && cd \"../Robridge web\" && echo \"✅ Setup complete! Run 'npm run dev' to start the system.\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "vercel-build": "npm run build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
