@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaQrcode, FaSave, FaSync, FaDownload, FaDatabase, FaBarcode } from 'react-icons/fa';
-import JsBarcode from 'jsbarcode';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import './BarcodeGenerator.css';
 
@@ -27,16 +25,12 @@ const BarcodeGenerator = () => {
   const [barcodeImage, setBarcodeImage] = useState(null);
   const [barcodeId, setBarcodeId] = useState('');
   const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'running', 'starting', 'error'
-  const barcodeRef = useRef(null);
 
   // API URLs - automatically detect environment
   const API_BASE_URL = process.env.NODE_ENV === 'production' 
     ? '' // Use relative URLs in production (Vercel)
     : 'http://localhost:3001';
   
-  const PYTHON_BACKEND_URL = process.env.NODE_ENV === 'production'
-    ? '' // Use relative URLs in production (Vercel)
-    : 'http://localhost:5000';
 
   const barcodeTypes = [
     { value: 'qr', label: 'QR Code', icon: FaQrcode, shortLabel: 'Generate QR Code' },
