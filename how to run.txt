@@ -1,0 +1,8 @@
+cd Barcode generator&Scanner 
+Python install -r requirements.txt 
+
+cd Robridge web
+npm install
+npm start 
+
+node server.js
