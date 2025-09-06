@@ -11,7 +11,7 @@ import io
 from PIL import Image
 
 app = Flask(__name__)
-CORS(app, origins=["https://robridge-web-production-frontend.onrender.com", "http://localhost:3000"])
+CORS(app, origins="*")
 
 # Database configuration for Render.com
 DATABASE_PATH = os.environ.get('DATABASE_URL', 'barcodes.db')
