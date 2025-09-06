@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y \
     g++ \
     libzbar0 \
     libzbar-dev \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
