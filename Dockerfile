@@ -22,7 +22,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Setup database
-RUN python backend/setup_database.py
+WORKDIR /app/backend
+RUN python setup_database.py
+WORKDIR /app
 
 # Expose port
 EXPOSE 5000
