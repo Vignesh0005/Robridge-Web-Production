@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "pip install -r requirements.txt && cd backend && python setup_database.py"
+buildCommand = "pip install -r requirements.txt && python backend/setup_database.py"
 
 [deploy]
 startCommand = "gunicorn app:app --bind 0.0.0.0:$PORT"
