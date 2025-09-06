@@ -11,7 +11,7 @@ import io
 from PIL import Image
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://robridge-web-production-frontend.onrender.com", "http://localhost:3000"])
 
 # Database configuration for Render.com
 DATABASE_PATH = os.environ.get('DATABASE_URL', 'barcodes.db')
@@ -449,7 +449,27 @@ def get_barcode_data(barcode_id):
 @app.route('/health')
 def health_check():
     """Health check endpoint"""
-    return jsonify({'status': 'healthy', 'message': 'Barcode generator is running'})
+    return jsonify({'status': 'ok', 'timestamp': datetime.now().isoformat()})
+
+@app.route('/api/health', methods=['GET'])
+def api_health_check():
+    """API health check endpoint"""
+    return jsonify({'status': 'ok', 'timestamp': datetime.now().isoformat()})
+
+@app.route('/api/start-backend', methods=['POST'])
+def start_backend():
+    """Start backend endpoint (for compatibility)"""
+    return jsonify({'success': True, 'message': 'Backend is already running'})
+
+@app.route('/api/stop-backend', methods=['POST'])
+def stop_backend():
+    """Stop backend endpoint (for compatibility)"""
+    return jsonify({'success': True, 'message': 'Backend stop requested'})
+
+@app.route('/api/backend-status', methods=['GET'])
+def backend_status():
+    """Backend status endpoint"""
+    return jsonify({'running': True, 'status': 'healthy'})
 
 if __name__ == '__main__':
     # Initialize database
