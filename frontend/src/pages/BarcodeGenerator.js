@@ -26,8 +26,8 @@ const BarcodeGenerator = () => {
   const [barcodeId, setBarcodeId] = useState('');
   const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'running', 'starting', 'error'
 
-  // API URLs - Railway backend (will be updated after deployment)
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://your-backend.up.railway.app';
+  // API URLs - Railway backend
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://robbridge-backend-production.up.railway.app';
   
 
   const barcodeTypes = [
