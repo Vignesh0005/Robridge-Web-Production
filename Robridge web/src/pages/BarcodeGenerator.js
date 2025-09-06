@@ -26,10 +26,8 @@ const BarcodeGenerator = () => {
   const [barcodeId, setBarcodeId] = useState('');
   const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'running', 'starting', 'error'
 
-  // API URLs - automatically detect environment
-  const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://robridge-web-production.onrender.com'
-    : 'http://localhost:3001';
+  // API URLs - force backend URL in production
+  const API_BASE_URL = 'https://robridge-web-production.onrender.com';
   
 
   const barcodeTypes = [
