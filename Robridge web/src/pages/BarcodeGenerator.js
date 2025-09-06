@@ -26,8 +26,8 @@ const BarcodeGenerator = () => {
   const [barcodeId, setBarcodeId] = useState('');
   const [backendStatus, setBackendStatus] = useState('checking'); // 'checking', 'running', 'starting', 'error'
 
-  // API URLs - force backend URL in production
-  const API_BASE_URL = 'https://robridge-web-production.onrender.com';
+  // API URLs - use environment variable with fallback
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://robridge-web-production.onrender.com';
   
 
   const barcodeTypes = [
