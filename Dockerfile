@@ -27,5 +27,8 @@ RUN python backend/setup_database.py
 # Expose port
 EXPOSE 5000
 
+# Set environment variable for port
+ENV PORT=5000
+
 # Start the application
 CMD gunicorn app:app --bind 0.0.0.0:$PORT
