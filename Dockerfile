@@ -28,4 +28,4 @@ RUN python backend/setup_database.py
 EXPOSE 5000
 
 # Start the application
-CMD gunicorn app:app --bind 0.0.0.0:${PORT:-5000}
+CMD gunicorn app:app --bind 0.0.0.0:$PORT
