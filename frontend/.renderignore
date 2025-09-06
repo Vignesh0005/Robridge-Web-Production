@@ -1,0 +1,5 @@
+# Ignore Python files for frontend deployment
+../barcode-generator-scanner/
+../*.py
+../requirements.txt
+../runtime.txt
