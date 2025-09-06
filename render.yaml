@@ -1,0 +1,40 @@
+services:
+  # Backend Service (Python Flask + SQLite)
+  - type: web
+    name: robbridge-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd "Barcode generator&Scanner"
+      pip install -r requirements.txt
+      python setup_database.py
+    startCommand: |
+      cd "Barcode generator&Scanner"
+      gunicorn --bind 0.0.0.0:$PORT barcode_generator:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_URL
+        value: /opt/render/project/src/Barcode generator&Scanner/barcodes.db
+    disk:
+      name: robbridge-data
+      mountPath: /opt/render/project/src/Barcode generator&Scanner
+      sizeGB: 1
+
+  # Frontend Service (React)
+  - type: web
+    name: robbridge-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd "Robridge web"
+      npm install
+      npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://robbridge-backend.onrender.com
+      - key: NODE_ENV
+        value: production

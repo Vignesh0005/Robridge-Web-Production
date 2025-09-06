@@ -13,10 +13,17 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app)
 
+# Database configuration for Render.com
+DATABASE_PATH = os.environ.get('DATABASE_URL', 'barcodes.db')
+BARCODES_DIR = os.path.join(os.path.dirname(__file__), 'barcodes')
+
+# Ensure barcodes directory exists
+os.makedirs(BARCODES_DIR, exist_ok=True)
+
 # Database setup
 def init_database():
     """Initialize SQLite database with barcode table"""
-    conn = sqlite3.connect('barcodes.db')
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
     cursor.execute('''
@@ -50,7 +57,7 @@ def generate_barcode_id(barcode_type, product_id):
 
 def save_barcode_to_db(barcode_id, barcode_data, barcode_type, source, file_path, metadata=None):
     """Save barcode information to database"""
-    conn = sqlite3.connect('barcodes.db')
+    conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
     # Debug logging
@@ -225,7 +232,7 @@ def generate_barcode():
         
         # Generate filename
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f"barcodes/{barcode_type}_{timestamp}"
+        filename = os.path.join(BARCODES_DIR, f"{barcode_type}_{timestamp}")
         print(f"DEBUG: Generated filename: {filename}")
         
         # Generate barcode based on type
@@ -297,10 +304,10 @@ def get_barcode(filename):
         print(f"DEBUG: Requesting barcode file: {filename}")
         
         # Handle both full path and just filename
-        if filename.startswith('barcodes/'):
+        if filename.startswith(BARCODES_DIR + '/'):
             file_path = filename
         else:
-            file_path = os.path.join('barcodes', filename)
+            file_path = os.path.join(BARCODES_DIR, filename)
             
         print(f"DEBUG: Full file path: {file_path}")
         print(f"DEBUG: File exists: {os.path.exists(file_path)}")
@@ -325,7 +332,7 @@ def get_barcode(filename):
 def list_barcodes():
     """List all generated barcodes"""
     try:
-        conn = sqlite3.connect('barcodes.db')
+        conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
         
         cursor.execute('''
@@ -365,7 +372,7 @@ def list_barcodes():
 def get_barcode_by_id(barcode_id):
     """Get barcode details by barcode ID"""
     try:
-        conn = sqlite3.connect('barcodes.db')
+        conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
         
         cursor.execute('''
@@ -409,7 +416,7 @@ def get_barcode_data(barcode_id):
     try:
         print(f"DEBUG: Requesting barcode data for ID: {barcode_id}")
         
-        conn = sqlite3.connect('barcodes.db')
+        conn = sqlite3.connect(DATABASE_PATH)
         cursor = conn.cursor()
         
         cursor.execute('''
