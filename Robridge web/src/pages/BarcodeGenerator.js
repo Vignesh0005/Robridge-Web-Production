@@ -28,7 +28,7 @@ const BarcodeGenerator = () => {
 
   // API URLs - automatically detect environment
   const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? process.env.REACT_APP_API_URL || 'https://robbridge-backend.onrender.com'
+    ? process.env.REACT_APP_API_URL || 'https://robridge-web-production.onrender.com'
     : 'http://localhost:3001';
   
 
